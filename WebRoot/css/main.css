@@ -1,0 +1,44 @@
+#banner{text-align:center;margin-top:3px;}
+.ba1{float:left;width:250px;}
+.ba2{float:left;width:700px;}
+.div1020{ width:1020px;margin:auto;}
+.div950{ width:950px;margin:auto;}
+.navi{margin:auto; background:url(http://i5.chinanews.com/edu/hp2009/jypd.jpg) no-repeat; height:136px;}
+
+.dd{margin:auto; background:url(http://i5.chinanews.com/edu/hp2009/dd.jpg) no-repeat; height:538px;}
+.dd-left{ margin-left:60px; width:435px; float:left;}
+.dd-right{ margin-left:35px; float:left;}
+.memo,.memo a,.memo a:visited,.memo a:hover{color:#808080; text-align:left; text-indent:2em;}
+.line{ border-bottom:1px solid #efedd9;}
+
+.zixun{margin:auto; background:url(http://i5.chinanews.com/edu/hp2009/zixun1.jpg) no-repeat; height:547px;}
+.zixun-left{ margin-left:60px; width:368px; float:left;}
+.zixun-right{ margin-left:45px; float:left; width:509px;}
+.more{  height:15px; overflow:auto;}
+.more img{padding-right:20px; float:right;}
+.school{ background:url(http://i3.chinanews.com/edu/hp2009/bg-school1.jpg) no-repeat; height:1017px;}
+.school-left{ margin-left:20px; width:380px; float:left;}
+.school-block{ margin-top:30px; height:280px;}
+.pink-more{ text-align:right; padding-right:45px; color:#980f2f;}
+.pink-more a,.pink-more a:hover,.pink-more a:visited{color:#980f2f;}
+.school-right{ margin-left:20px; float:left; width:530px;}
+.school-right1{ overflow:auto;}
+.jsyd{  width:265px; margin-top:20px; float:left; height:275px; overflow:hidden;}
+.black-more{ text-align:right; padding-right:25px;}
+.tuya{ float:left; width:110px; height:170px; display:inline;}
+.kutu{ margin-left:5px; width:196px; height:212px;}
+.fmxt{ margin-left:60px; margin-top:100px;width:440px; float:left;}
+.jtjy-right{ margin-left:20px; margin-top:100px;width:440px; float:left; overflow:hidden;}
+
+.a-blue1,.a-blue1 a,.a-blue1 a:visited,.a-blue1 a:hover{color:#1f6db4;}/*兰用于div标记样式*/
+.font-red1{ color:#d1244c;}
+.a-gray1,.a-gray1 a,.a-gray1 a:visited,.a-gray1 a:hover{color:#6e5f50;}
+
+.inline{ display:inline;}
+.overflow-auto{ overflow:auto;}
+.position-a{ position:absolute;}
+.h1,.h1 a,.h1 a:visited,.h1 a:hover{ color:#ff6c00; font-size:20px;  font-family:黑体;}
+.clear{ clear:both;}
+.margin-top20{ margin-top:20px;}
+.height30{  height:30px;}
+.cursor{ cursor:pointer;}
