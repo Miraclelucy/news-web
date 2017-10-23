@@ -1,9 +1,6 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 10.10.69.131_3306
-Source Server Version : 50711
-Source Host           : 10.10.69.131:3306
 Source Database       : atest
 
 Target Server Type    : MYSQL
