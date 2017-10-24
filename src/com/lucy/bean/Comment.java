@@ -2,30 +2,30 @@ package com.lucy.bean;
 
 public class Comment {
 	private int commentid;
-	private String commenttype;
 	private int commentnewid;
+	private String commenttype;
 	private String commentname;
-	private int commentcount;
+	private String commenttext;
 
 	public Comment() {
 		super();
 	}
 
-	public Comment(String commenttype, String commentname, int commentcount) {
+	public Comment(String commenttype, String commentname, String commenttext) {
 		super();
 		this.commenttype = commenttype;
 		this.commentname = commentname;
-		this.commentcount = commentcount;
+		this.commenttext = commenttext;
 	}
 
 	public Comment(int commentid, String commenttype, int commentnewid,
-			String commentname, int commentcount) {
+			String commentname, String commenttext) {
 		super();
 		this.commentid = commentid;
 		this.commenttype = commenttype;
 		this.commentnewid = commentnewid;
 		this.commentname = commentname;
-		this.commentcount = commentcount;
+		this.commenttext = commenttext;
 	}
 
 	public int getCommentid() {
@@ -60,12 +60,12 @@ public class Comment {
 		this.commentname = commentname;
 	}
 
-	public int getCommentcount() {
-		return commentcount;
+	public String getCommenttext() {
+		return commenttext;
 	}
 
-	public void setCommentcount(int commentcount) {
-		this.commentcount = commentcount;
+	public void setCommenttext(String commenttext) {
+		this.commenttext = commenttext;
 	}
 
 }

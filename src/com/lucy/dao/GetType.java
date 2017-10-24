@@ -86,7 +86,7 @@ public class GetType {
 	public boolean deletetype(String str) {
 		conn = com.lucy.until.Connsql.getconn();
 		try {
-			String sql="delete from type where typeId in ('"+str+"')";
+			String sql="delete from tf_type where typeId in ('"+str+"')";
 			PreparedStatement ps=conn.prepareStatement(sql);
 			int res = ps.executeUpdate();
 			if (res > 0) {

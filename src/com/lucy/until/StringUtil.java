@@ -17,4 +17,13 @@ public class StringUtil {
 			return false;
 		}
 	}
+	
+	 public static String null2String(String s)
+	  {
+	    return s == null ? "" : s;
+	  }
+	  
+	 
+	 
+	
 }

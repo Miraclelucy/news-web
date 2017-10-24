@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.lucy.bean.Comment;
+import com.lucy.bean.News;
 
 public class Getcomment {
 	private Connection conn = null;
@@ -24,18 +25,39 @@ public class Getcomment {
 			comments = new ArrayList<Comment>();
 			while (res.next()) {
 				comment = new Comment(res.getInt(1), res.getString(2), res
-						.getInt(3), res.getString(4), res.getInt(5));
+						.getInt(3), res.getString(4), res.getString(5));
 				comments.add(comment);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
-		}
+		}	
 		return comments;
 
 	}
+	
+	public int getCommentCount(){
+		conn = com.lucy.until.Connsql.getconn();
+		int count=0;
+		try {
+			ps = conn.prepareStatement("select * from tf_comment");
+			res = ps.executeQuery();
+			while(res.next()){
+				count++;
+			}
+			return count;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return 0;
+		}	
+		finally {
+			close();
+		}	
+		
+	}
+	
+	
 
 	public  void close() {
 		try {
@@ -50,11 +72,76 @@ public class Getcomment {
 			}
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
+	
+	public boolean insertComment(Comment  m){
+		boolean flag=false;
+		conn=com.lucy.until.Connsql.getconn();
+		String sql="insert into tf_comment (commentnewid,commentname,commenttext) values (?,?,?)";
+		try{
+				ps = conn.prepareStatement(sql);
+				ps.setInt(1, m.getCommentnewid());
+		        ps.setString(2, m.getCommentname());    
+		        ps.setString(3, m.getCommenttext());
+				int res = ps.executeUpdate();
+				if (res > 0) {
+					flag = true;
+				}
+			} catch (SQLException e) {
+		
+				e.printStackTrace();
+			} finally {
+				close();
+			}
+		return flag;
+		
+	}
+	
+	public boolean delCommentbyid(String delIds) {
+		boolean flag = false;
+		conn = com.lucy.until.Connsql.getconn();
+		try {			
+			String sql="delete from tf_comment where commentid in ('"+delIds+"')";
+			PreparedStatement ps=conn.prepareStatement(sql);
+			int res = ps.executeUpdate();
+			if (res > 0) {
+				flag = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return flag;
+	}
+
+	/**
+	 * 
+	 */
+	public boolean upComment(Comment comment) {
+		boolean flag = false;
+		conn = com.lucy.until.Connsql.getconn();
+		try {
+			ps = conn.prepareStatement("update tf_comment set commentnewid='"
+					+ comment.getCommentnewid() + "',commentname='" + comment.getCommentname()
+					+ "',commenttext='" + comment.getCommenttext()
+					+ "'  where commentid="+comment.getCommentid());
+			int res = ps.executeUpdate();
+			if (res > 0) {
+				flag = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close();
+		}
+		return flag;
+	}
+
+	
 	public ArrayList<String> getcommtitle(){
 		conn=com.lucy.until.Connsql.getconn();
 		try {
@@ -65,7 +152,6 @@ public class Getcomment {
 				v.add(res.getString(1));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			close();
