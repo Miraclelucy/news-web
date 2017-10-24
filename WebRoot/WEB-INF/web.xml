@@ -65,10 +65,48 @@
     <servlet-name>newsSaveServlet</servlet-name>
     <url-pattern>/admin/newsSave</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>typeListServlet</servlet-name>
     <servlet-class>com.lucy.servlet.TypeListServlet</servlet-class>
   </servlet>
+    <servlet-mapping>
+    <servlet-name>typeListServlet</servlet-name>
+    <url-pattern>/admin/typeList</url-pattern>
+  </servlet-mapping>
+  
+  <!-- 评论相关内容 start -->
+   <servlet>
+    <servlet-name>commentListServlet</servlet-name>
+    <servlet-class>com.lucy.servlet.CommentListServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>commentListServlet</servlet-name>
+    <url-pattern>/admin/commentList</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>commentSave</servlet-name>
+    <servlet-class>com.lucy.servlet.CommentSaveServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>commentSave</servlet-name>
+    <url-pattern>/admin/commentSave</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>commentDelete</servlet-name>
+    <servlet-class>com.lucy.servlet.CommentDeleteServlet</servlet-class>
+  </servlet>
+    <servlet-mapping>
+    <servlet-name>commentDelete</servlet-name>
+    <url-pattern>/admin/commentDelete</url-pattern>
+  </servlet-mapping>
+  
+  
+    <!-- 评论相关内容 end-->
+  
+  
   <servlet>
     <servlet-name>typeComboListServlet</servlet-name>
     <servlet-class>com.lucy.servlet.TypeComboListServlet</servlet-class>
@@ -81,10 +119,7 @@
     <servlet-name>typeDeleteServlet</servlet-name>
     <servlet-class>com.lucy.servlet.TypeDeleteServlet</servlet-class>
   </servlet>
-  <servlet-mapping>
-    <servlet-name>typeListServlet</servlet-name>
-    <url-pattern>/admin/typeList</url-pattern>
-  </servlet-mapping>
+
   <servlet-mapping>
     <servlet-name>typeComboListServlet</servlet-name>
     <url-pattern>/admin/typeComboList</url-pattern>

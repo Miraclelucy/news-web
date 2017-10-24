@@ -14,8 +14,8 @@
 									{"menuid":"14","menuname":"封号管理","icon":"icon-role","url":"userManager.jsp"}
 								]
 						},{"menuid":"4","icon":"icon-sys","menuname":"留言管理",
-							"menus":[{"menuid":"15","menuname":"留言查询","icon":"icon-nav","url":"bbsManager.jsp"},
-										{"menuid":"16","menuname":"留言编辑","icon":"icon-role","url":"bbsManager.jsp"}
+							"menus":[{"menuid":"15","menuname":"留言查询","icon":"icon-nav","url":"commentDetails.jsp"},
+										{"menuid":"16","menuname":"留言编辑","icon":"icon-role","url":"commentDetails.jsp"}
 									]
 							},{"menuid":"5","icon":"icon-sys","menuname":"系统管理",
 							"menus":[{"menuid":"17","menuname":"管理员设置","icon":"icon-nav","url":"adminDetails.jsp"},
