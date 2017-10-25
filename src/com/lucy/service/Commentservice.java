@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.lucy.bean.Comment;
 import com.lucy.dao.Getcomment;
 
-public class Commentservice {
+public class Commentservice { 
        
 	Getcomment  commentdao=new Getcomment();
 	public ArrayList<Comment> getcomment() {

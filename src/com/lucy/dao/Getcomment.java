@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import com.lucy.bean.Comment;
-import com.lucy.bean.News;
+import com.lucy.bean.News; 
 
 public class Getcomment {
 	private Connection conn = null;

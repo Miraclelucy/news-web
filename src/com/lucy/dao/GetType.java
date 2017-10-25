@@ -82,7 +82,7 @@ public class GetType {
 
 	/**
 	 * 
-	 */
+	 */ 
 	public boolean deletetype(String str) {
 		conn = com.lucy.until.Connsql.getconn();
 		try {

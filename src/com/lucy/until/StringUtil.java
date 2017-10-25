@@ -20,7 +20,7 @@ public class StringUtil {
 	
 	 public static String null2String(String s)
 	  {
-	    return s == null ? "" : s;
+	    return s == null ? "" : s; 
 	  }
 	  
 	 

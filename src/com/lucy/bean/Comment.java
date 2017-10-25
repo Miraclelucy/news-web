@@ -5,7 +5,7 @@ public class Comment {
 	private int commentnewid;
 	private String commenttype;
 	private String commentname;
-	private String commenttext;
+	private String commenttext; 
 
 	public Comment() {
 		super();
