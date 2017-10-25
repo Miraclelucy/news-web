@@ -36,7 +36,7 @@ var url;
 		var selectedRows=$("#dg").datagrid('getSelections');
 		if(selectedRows.length!=1){
 			$.messager.alert("系统提示","请选择一条要编辑的数据！");
-			return;
+			return; 
 		}
 		var row=selectedRows[0];
 		$("#dlg").dialog("open").dialog("setTitle","编辑新闻信息");

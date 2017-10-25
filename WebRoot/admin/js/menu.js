@@ -21,7 +21,7 @@
 							"menus":[{"menuid":"17","menuname":"管理员设置","icon":"icon-nav","url":"adminDetails.jsp"},
 									{"menuid":"18","menuname":"网站参数设置","icon":"icon-nav","url":"websiteSet.jsp"},
 									{"menuid":"19","menuname":"系统日志","icon":"icon-nav","url":"systemLog.jsp"},
-								]
+								] 
 						}
 				]};
         //设置登录窗口

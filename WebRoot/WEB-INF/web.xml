@@ -75,7 +75,7 @@
     <url-pattern>/admin/typeList</url-pattern>
   </servlet-mapping>
   
-  <!-- 评论相关内容 start -->
+  <!-- 评论相关内容 start --> 
    <servlet>
     <servlet-name>commentListServlet</servlet-name>
     <servlet-class>com.lucy.servlet.CommentListServlet</servlet-class>

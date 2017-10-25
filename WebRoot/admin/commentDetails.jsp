@@ -13,7 +13,7 @@
 <script type="text/javascript" src="jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="script/commentScript.js"> </script>
 </head>
-<body style="margin: 5px;">
+<body style="margin: 5px;"> 
 	<table id="dg" title="评论信息" class="easyui-datagrid" fitColumns="true"
 		pagination="true" rownumbers="true" url="commentList" fit="true"
 		toolbar="#tb">
