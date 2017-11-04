@@ -14,15 +14,19 @@ public class GetAdmin {
 	private ArrayList<Admin> v = null;
     private boolean flag;
 
+
+    
+
+
 	/**
-	 * 
+	 *
 	 * 获取全部管理员
 	 */
 	public ArrayList<Admin> getall() {
 		conn = com.lucy.until.Connsql.getconn();
 		try {
+				res = ps.executeQuery();
 			ps = conn.prepareStatement("select adminId,adminName,adminPwd from tf_admin");
-			res = ps.executeQuery();
 			v = new ArrayList<Admin>();
 			while (res.next()) {
 				Admin admin = new Admin(res.getInt(1),res.getString(2), res.getString(3));
@@ -34,7 +38,6 @@ public class GetAdmin {
 		} finally {
 			close();
 		}
-
 		return v;
 	}
 	

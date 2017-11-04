@@ -85,14 +85,14 @@
     <url-pattern>/admin/commentList</url-pattern>
   </servlet-mapping>
   
-  <servlet>
+ <!--  <servlet>
     <servlet-name>commentSave</servlet-name>
     <servlet-class>com.lucy.servlet.CommentSaveServlet</servlet-class>
   </servlet>
     <servlet-mapping>
     <servlet-name>commentSave</servlet-name>
     <url-pattern>/admin/commentSave</url-pattern>
-  </servlet-mapping>
+  </servlet-mapping> -->
   
   <servlet>
     <servlet-name>commentDelete</servlet-name>

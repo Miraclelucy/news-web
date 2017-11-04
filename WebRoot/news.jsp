@@ -40,7 +40,7 @@
 			%>
 			<tr>
 				<td align="center"><%=nw.getNewTitle()%></td>
-			</tr>
+			     </tr>
 			<tr>
 				<td>时间： <%=nw.getNewTime().substring(0, 10)%></td>
 			</tr>

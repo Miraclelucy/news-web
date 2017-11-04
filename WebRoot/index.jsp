@@ -164,7 +164,7 @@
 					%>
 					<tr>
 						<td><%=comment.getCommentname() %></td>
-						<td><%=comment.getCommentcount() %></td>
+						<td><%=comment.getCommenttext() %></td>
 					</tr>
 					<% 
 		              }

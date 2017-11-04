@@ -145,7 +145,7 @@ public class Getcomment {
 	public ArrayList<String> getcommtitle(){
 		conn=com.lucy.until.Connsql.getconn();
 		try {
-			ps=conn.prepareStatement("select n.new_title from tf_news n,comment c where c.comm_news_id=n.new_id");
+			ps=conn.prepareStatement("select n.new_title from tf_news n,tf_comment c where c.comm_news_id=n.new_id");
 			res=ps.executeQuery();
 			v=new ArrayList<String>();
 			while(res.next()){

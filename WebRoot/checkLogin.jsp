@@ -24,12 +24,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var t = 5; 
 	function countDown(){ 
 	var time = document.getElementById("delay"); 
-	document.getElementById("delay").innerHTML=t; 
+	document.getElementById("delay").innerHTML=t;
 	t--; 	
 	if (t<=0) { 
-	location.href="index.jsp"; 
-	clearInterval(inter); 
-	}; 
+	location.href="index.jsp";
+	clearInterval(inter);
+
+	};
 	} 
 	var inter = setInterval("countDown()",1000); 
 	//window.onload=countDown; 
@@ -38,6 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<body onload="countDown()">
 	<center>
+	<h2>您好，管理员：<%=session.getAttribute("Msg2")%></h2>
 	<h2>您好，管理员：<%=session.getAttribute("Msg2")%></h2>
 	<span id="delay" style="background: red">5</span> s后即将跳转到首页。。。
 	</center>

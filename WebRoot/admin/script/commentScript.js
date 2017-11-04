@@ -29,7 +29,7 @@ var url;
 	
 	function openCommentAddDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","添加新闻类型信息");
-		url="commentSave";
+		url="commentSaveInfo";
 	}
 	
 	function openCommentModifyDialog(){
@@ -41,7 +41,7 @@ var url;
 		var row=selectedRows[0];
 		$("#dlg").dialog("open").dialog("setTitle","编辑新闻信息");
 		$("#fm").form("load",row);
-		url="commentSave?commentid="+row.commentid;
+		url="commentSaveInfo?commentid="+row.commentid;
 	}
 
 	

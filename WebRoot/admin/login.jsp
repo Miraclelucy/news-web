@@ -21,22 +21,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 		<script type="text/javascript">
-function check()
-{
-   if(document.from.name.value=="")
-   {
-     txt.innerHTML="用户名不为空";
-     return false;
-   }
-   if(document.from.pwd.value=="")
-   {
-     txt.innerHTML="密码不为空";
-     return false;
-   }
-    return true;
-}
+		function check()
+		{
+		   if(document.from.name.value=="")
+		   {
+			 txt.innerHTML="用户名不为空";
+			 return false;
+		   }
+		   if(document.from.pwd.value=="")
+		   {
+			 txt.innerHTML="密码不为空";
+			 return false;
+		   }
+			return true;
+		}
 
-</script>
+		</script>
 	</head>
 
 	<body bgcolor="">

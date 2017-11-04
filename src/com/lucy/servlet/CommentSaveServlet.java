@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +29,7 @@ import com.lucy.until.StringUtil;
  * @date 2017年10月24日 上午8:04:26
  * @version V1.0  
  */
+@WebServlet(name="commentSaveServlet", urlPatterns={"/commentSaveInfo"},loadOnStartup=1)
 public class CommentSaveServlet  extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
