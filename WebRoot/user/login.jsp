@@ -43,7 +43,7 @@ function check()
 	<body bgcolor="">
 		<center>
 			<span id="txt"></span>
-			<form action="user/userLogin" method="post" name="from">
+			<form action="/admin/user?method=login" method="post" name="from">
 				<table width="50%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td >

@@ -38,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<body onload="countDown()">
 	<center>
-		注册成功，请先登录！<span id="delay" style="background: red">5</span> s后即将跳转到首页。。。
+		注册成功，请去邮箱激活！<span id="delay" style="background: red">5</span> s后即将跳转到首页。。。
 		<br>
 		
 </center>

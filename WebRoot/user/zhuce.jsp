@@ -88,7 +88,7 @@ function  check()
 	</head>
 
 	<body>
-		<form action="user/userSave" method="post" id="form" name="form">
+		<form action="/admin/user?method=reg" method="post" id="form" name="form">
 			<center>
 				<table>
 					<tr>
