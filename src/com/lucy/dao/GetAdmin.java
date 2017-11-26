@@ -25,15 +25,14 @@ public class GetAdmin {
 	public ArrayList<Admin> getall() {
 		conn = com.lucy.until.Connsql.getconn();
 		try {
-				res = ps.executeQuery();
 			ps = conn.prepareStatement("select adminId,adminName,adminPwd from tf_admin");
+			res = ps.executeQuery();
 			v = new ArrayList<Admin>();
 			while (res.next()) {
 				Admin admin = new Admin(res.getInt(1),res.getString(2), res.getString(3));
 				v.add(admin);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close();
@@ -53,7 +52,6 @@ public class GetAdmin {
 			}
 			return count;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return 0;
 		}	
@@ -107,7 +105,7 @@ public class GetAdmin {
 		boolean flag = false;
 		conn=com.lucy.until.Connsql.getconn();
 		try {
-			ps=conn.prepareStatement("insert into admin values(?,?)");
+			ps=conn.prepareStatement("insert into tf_admin(adminName,adminPwd) values(?,?)");
 			ps.setString(1, admin.getAdminName());
 			ps.setString(2, admin.getAdminPwd());		
 			int rs=ps.executeUpdate();

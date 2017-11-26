@@ -20,7 +20,7 @@ public class ResolveNews {
         StringBuffer sb = new StringBuffer(); 
         try { 
             url = new URL(htmlurl); 
-            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "gbk"));// 读取网页全部内容 
+            BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream(), "UTF-8"));// 读取网页全部内容
             while ((temp = in.readLine()) != null) { 
                 sb.append(temp).append("\n"); 
             } 

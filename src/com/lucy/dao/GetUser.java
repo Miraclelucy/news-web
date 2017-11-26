@@ -176,7 +176,7 @@ public class GetUser {
 		else {
 			conn = com.lucy.until.Connsql.getconn();
 			try {
-				ps = conn.prepareStatement("select * from tf_user where userId="+user.getUserId()+"and userState=0");
+				ps = conn.prepareStatement("select * from tf_user where userId="+user.getUserId()+" and userState='0'");
 				res = ps.executeQuery();
 				if(res.next()) {
 					flag = 2;//用戶名被禁用，标识爲2；

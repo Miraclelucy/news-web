@@ -5,6 +5,23 @@ public class User {
 	private String userName;
 	private String userSex;
 	private String userAge;
+
+	@Override
+	public String toString() {
+		return "User{" +
+				"userId=" + userId +
+				", userName='" + userName + '\'' +
+				", userSex='" + userSex + '\'' +
+				", userAge='" + userAge + '\'' +
+				", userPassword='" + userPassword + '\'' +
+				", userEmail='" + userEmail + '\'' +
+				", userLike='" + userLike + '\'' +
+				", userAdd='" + userAdd + '\'' +
+				", userRemark='" + userRemark + '\'' +
+				", userState=" + userState +
+				'}';
+	}
+
 	private String userPassword;
 	private String userEmail;
 	private String userLike;
