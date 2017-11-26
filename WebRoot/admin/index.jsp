@@ -1,15 +1,20 @@
+<%@ page import="com.lucy.until.StringUtil" %>
+<%@ page import="java.util.Date" %>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+         pageEncoding="utf-8"%>
+<%@ include file="/admin/include/taglib.jsp"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
  <title>欢迎访问新闻发布后台系统</title>
     <link href="css/default.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="jquery-easyui-1.3.3/themes/default/easyui.css" />
-    <link rel="stylesheet" type="text/css" href="jquery-easyui-1.3.3/themes/icon.css" />
-    <script type="text/javascript" src="jquery-easyui-1.3.3/jquery.min.js"></script>
-    <script type="text/javascript" src="jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="${fns:getThemePath()}/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="${fns:getThemePath()}/themes/icon.css" />
+    <script type="text/javascript" src="${fns:getThemePath()}/jquery.min.js"></script>
+    <script type="text/javascript" src="${fns:getThemePath()}/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src='js/outlook2.js'> </script>
     <script type="text/javascript" src='js/menu.js'> </script>
 
@@ -21,8 +26,29 @@
     <div region="north" split="true" border="false" style="overflow: hidden; height: 50px;
         background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
         line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
-        <span style="float:right; padding-right:20px; padding-top:10px;" class="head"><%=request.getSession().getAttribute("adminName") %>，欢迎来到新闻管理后台！！<a href="#" id="editpass">修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
+        <span style="float:right; padding-right:20px; padding-top:10px;" >
+            <%
+             ServletContext servletContext=config.getServletContext();
+             // application 是一个ServletContext实例
+                // config 是一个ServletConfig实例
+                //request  是一个httpServletRequest实例
+                //response  是一个httpServletResponse实例
+                //session 是一个httpSession实例 管理会话
+                //page  代表JSP页面本身， 对JSP页面创建者通常不可访问，所以一般很少用
+                //pageContext  是一个PageContext
+                //exception
+                //out  是一个JspWriter 用来向客户端输出数据
+
+             String count2= StringUtil.null2String(application.getAttribute("count"));
+            %>
+        在线人数：<%=count2%>人 &nbsp;
+           <c:set var="now" value="<%=new Date()%>"></c:set>
+            <fmt:formatDate type="time" value="${now}"></fmt:formatDate>
+        </span>
+        <span style="float:right; padding-right:20px; padding-top:10px;" class="head" > <%=request.getSession().getAttribute("adminName") %>，欢迎来到新闻管理后台！！<a href="#" id="editpass">修改密码</a> <a href="#" id="loginOut">安全退出</a></span>
         <span style="padding-left:10px; font-size: 28px; "><img src="images/blocks.gif" width="40" height="40" align="absmiddle" />后台管理系统</span>
+
+
     </div>
     
     <div region="west" hide="true" split="true" title="导航菜单" style="width:180px;" id="west">

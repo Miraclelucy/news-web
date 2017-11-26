@@ -9,15 +9,15 @@ var url;
 		}
 		var strIds=[];
 		for(var i=0;i<selectedRows.length;i++){
-			strIds.push(selectedRows[i].typeId);
+			strIds.push(selectedRows[i].commentid);
 		}
 		var ids=strIds.join(",");
 		$.messager.confirm("系统提示","您确认要删掉这<font color=red>"+selectedRows.length+"</font>条数据吗？",function(r){
 			if(r){
-				$.post("commentDelete",{delIds:ids},function(result){
-					if(result.success){
+				$.post("/admin/comment?method=del",{delIds:ids},function(result){
+					if(result.status==1){
 						$.messager.alert("系统提示","您已成功删除数据！");
-						$("#dg").datagrid("reload");
+                        $("#dg").datagrid("reload");
 					}else{
 						$.messager.alert('系统提示',result.errorMsg);
 					}
@@ -29,7 +29,7 @@ var url;
 	
 	function openCommentAddDialog(){
 		$("#dlg").dialog("open").dialog("setTitle","添加新闻类型信息");
-		url="commentSaveInfo";
+		url="/admin/comment?method=save";
 	}
 	
 	function openCommentModifyDialog(){
@@ -41,7 +41,7 @@ var url;
 		var row=selectedRows[0];
 		$("#dlg").dialog("open").dialog("setTitle","编辑新闻信息");
 		$("#fm").form("load",row);
-		url="commentSaveInfo?commentid="+row.commentid;
+		url="/admin/comment?method=save&commentid="+row.commentid;
 	}
 
 	

@@ -1,21 +1,37 @@
+<%@ page import="com.lucy.until.CookieUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
+<%@ include file="/admin/include/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
 <link href="css/default.css" rel="stylesheet" type="text/css" />
-<link rel="stylesheet" type="text/css" href="jquery-easyui-1.3.3/themes/default/easyui.css" />
-<link rel="stylesheet" type="text/css" href="jquery-easyui-1.3.3/themes/icon.css" />
-<script type="text/javascript" src="jquery-easyui-1.3.3/jquery.min.js"></script>
-<script type="text/javascript" src="jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+<link rel="stylesheet" type="text/css" href="${fns:getThemePath()}/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css" href="${fns:getThemePath()}/themes/icon.css" />
+<script type="text/javascript" src="${fns:getThemePath()}/jquery.min.js"></script>
+<script type="text/javascript" src="${fns:getThemePath()}/jquery.easyui.min.js"></script>
+<script type="text/javascript" src="${fns:getThemePath()}/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="script/commentScript.js"> </script>
 </head>
+<%
+	Cookie cookie= CookieUtils.getCookieByName("lastJsp",request.getCookies());
+	if(cookie!=null){
+		cookie.setValue("commentDetail.jsp");
+		cookie.setMaxAge(60*60*1000);
+		response.addCookie(cookie);
+		System.out.println("----更新lastJsp---");
+	}else{
+		Cookie cookienew=new Cookie("lastJsp","commentDetail.jsp");
+		cookienew.setMaxAge(60*60*1000);
+		response.addCookie(cookienew);
+		System.out.println("----增加lastJsp---");
+	}
+%>
 <body style="margin: 5px;"> 
 	<table id="dg" title="评论信息" class="easyui-datagrid" fitColumns="true"
-		pagination="true" rownumbers="true" url="commentList" fit="true"
+		pagination="true" rownumbers="true" url="/admin/comment?method=list" fit="true"
 		toolbar="#tb">
 		<thead>
 			<tr>

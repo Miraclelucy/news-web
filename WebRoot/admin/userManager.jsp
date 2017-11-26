@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ include file="/admin/include/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,19 +8,19 @@
 <title>Insert title here</title>
 <link href="css/default.css" rel="stylesheet" user="text/css" />
 <link rel="stylesheet" user="text/css"
-	href="jquery-easyui-1.3.3/themes/default/easyui.css" />
+	href="${fns:getThemePath()}/themes/default/easyui.css" />
 <link rel="stylesheet" user="text/css"
-	href="jquery-easyui-1.3.3/themes/icon.css" />
-<script user="text/javascript" src="jquery-easyui-1.3.3/jquery.min.js"></script>
+	href="${fns:getThemePath()}/themes/icon.css" />
+<script user="text/javascript" src="${fns:getThemePath()}/jquery.min.js"></script>
 <script user="text/javascript"
-	src="jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+	src="${fns:getThemePath()}/jquery.easyui.min.js"></script>
 <script user="text/javascript" 
-	src="jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+	src="${fns:getThemePath()}/locale/easyui-lang-zh_CN.js"></script>
 <script user="text/javascript" src="script/userScript.js"> </script>
 </head>
 <body style="margin: 5px;">
 	<table id="dg" title="新闻信息" class="easyui-datagrid" fitColumns="true"
-		pagination="true" rownumbers="true" url="userList" fit="true"
+		pagination="true" rownumbers="true" url="/admin/user?method=list" fit="true"
 		toolbar="#tb">
 		<thead>
 			<tr>

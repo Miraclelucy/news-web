@@ -1,5 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@ include file="head.jsp"%>
+<%@ include file="/user/head.jsp"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -41,8 +41,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	<body bgcolor="">
 		<center>
-			<span id="txt"></span>
-			<form action="adminLogin" method="post" name="from">
+			<span id="txt">${Msg2} </span>
+			<form action="/admin?method=login" method="post" name="from">
 				<table width="50%" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 						<td >
@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</td>
 						<td  >
 							&nbsp;
-							<input type="text" name="name">
+							<input type="text" name="adminName" value="${cookie.rememberMeName.value}">
 						</td>
 					</tr>
 					<tr>
@@ -59,9 +59,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</td>
 						<td >
 							&nbsp;
-							<input type="password" name="pwd">
+							<input type="password" name="adminPwd" value="${cookie.rememberMePwd.value}">
 						</td>
-					</tr>					
+					</tr>
+					<tr>
+						<td >
+							&nbsp;验证码：<image src="/validateCode"/>
+						</td>
+						<td >
+							&nbsp;
+							<input type="text" name=validateCode>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							&nbsp;记住我
+						</td>
+						<td >
+							&nbsp;
+							<input type="checkbox" name=rememberMe>
+						</td>
+					</tr>
+					<tr>
+						<td >
+							&nbsp;下次自动登录
+						</td>
+						<td >
+							&nbsp;
+							<input type="checkbox" name=autologin>
+						</td>
+					</tr>
 					<tr>
 						<td colspan="2">
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -75,7 +102,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</form>
 		</center>
 	</body>
-	<%@ include file="foot.jsp"%>
+	<%@ include file="/user/foot.jsp"%>
 </html>
 
 

@@ -1,5 +1,7 @@
+<%@ page import="com.lucy.until.CookieUtils" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+		 pageEncoding="UTF-8"%>
+<%@ include file="/admin/include/taglib.jsp"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -7,19 +9,32 @@
 <title>Insert title here</title>
 <link href="css/default.css" rel="stylesheet" type="text/css" />
 <link rel="stylesheet" type="text/css"
-	href="jquery-easyui-1.3.3/themes/default/easyui.css" />
+	href="${fns:getThemePath()}/themes/default/easyui.css" />
 <link rel="stylesheet" type="text/css"
-	href="jquery-easyui-1.3.3/themes/icon.css" />
-<script type="text/javascript" src="jquery-easyui-1.3.3/jquery.min.js"></script>
+	href="${fns:getThemePath()}/themes/icon.css" />
+<script type="text/javascript" src="${fns:getThemePath()}/jquery.min.js"></script>
 <script type="text/javascript"
-	src="jquery-easyui-1.3.3/jquery.easyui.min.js"></script>
+	src="${fns:getThemePath()}/jquery.easyui.min.js"></script>
 <script type="text/javascript" 
-	src="jquery-easyui-1.3.3/locale/easyui-lang-zh_CN.js"></script>
+	src="${fns:getThemePath()}/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="script/newsScript.js"> </script>
 </head>
+<%
+	Cookie cookie= CookieUtils.getCookieByName("lastJsp",request.getCookies());
+	if(cookie!=null){
+		cookie.setValue("newsDetail.jsp");
+		cookie.setMaxAge(60*60*1000);
+		response.addCookie(cookie);
+		System.out.println("----更新lastJsp---");
+	}else{
+		Cookie cookienew=new Cookie("lastJsp","newsDetail.jsp");
+		cookienew.setMaxAge(60*60*1000);
+		response.addCookie(cookienew);
+	}
+%>
 <body style="margin: 5px;">
 	<table id="dg" title="新闻信息" class="easyui-datagrid" fitColumns="true"
-		pagination="true" rownumbers="true" url="newsList" fit="true"
+		pagination="true" rownumbers="true" url="/admin/news?method=list" fit="true"
 		toolbar="#tb">
 		<thead>
 			<tr>
@@ -66,7 +81,7 @@
 					<td>类型：</td>
 					<td><input class="easyui-combobox" id="newTypeId" name="newTypeId"  
 					data-options="panelHeight:'auto',editable:false,valueField:'typeId',textField:'typeName',
-					url:'typeComboList'"/></td>
+					url:'/admin/type?method=getComlist'"/></td>
 				</tr>
 				<tr>
 					<td>发布时间：</td>
