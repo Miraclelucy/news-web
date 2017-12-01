@@ -1,0 +1,42 @@
+20171112 项目实践
+1 重复提交之令牌机制
+有表单使用的时候若使用请求转发会出现重复提交
+	方案1:重定向
+	方案2:令牌机制
+	扩展:令牌机制
+		在添加页面上随机生成一个字符串,
+			放入session中一份,放入表单中一份
+			提交的时候在后台获取两个码
+			然后移除session中码(只使用一次)
+			然后判断两个码是否一致,
+			若不一致就是重复提交了
+	demo见/1/testfrom.jsp和ecceptfrom.jsp
+
+
+2 BeanUtils
+
+
+3 分页
+分页:
+	将数据按照页码划分,提高用户的体验度.
+分类:
+	物理分页:(开发中经常使用)
+		一次只去数据库中查询当前页需要的数据.
+	逻辑分页:
+		一次性将所有数据查询出来,放入内存(集合),每次查询只需要去内存中截取
+mysql中分页:
+	limit
+	格式1:
+		select ....  limit m,n;
+		从索引为m条开始向后查找n条数据
+		就是从第m+1条 到 第m+n条  []
+	格式2:
+		select .... limit n;
+		等价于:select .... limit 0,n;
+
+以后开发中一般会将这5个参数封装一个javabean(PageBean)
+		private List<T> list;//当前页内容	 	查询
+		private int currPage;//当前页码 	 	传递
+		private int pageSize;//每页显示的条数	固定
+		private int totalCount;//总条数			查询
+		private int totalPage;//总页数			计算

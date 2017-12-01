@@ -1,0 +1,17 @@
+20171104xml与反射  （day08-xml&tomcat\视频\03.案例1-编写服务器软件-dom4j解析和扩展xpath_.flv）
+1 解析方式
+sax解析：逐行解析，不支持curd
+dom解析:一次性把文档加载到内存中，形成一个dom树
+ 可以进行curd.缺点 文档不能过大
+
+2 解析技术：
+dom4j 比较常见的解析开发包，hibernate底层采用
+还有不常见的JAXP,Jdom等
+
+3 导入jar包dom4j 依赖包dom4j-1.6.1.jar
+
+
+4 xpath技术：依赖于dom4j 和 jaxen-1.1-beta-6.jar
+用来获取单个节点
+/BBBBBB 获取所有BBBBBB
+/DDDD/AAAA/BBBB 获取/DDDD/AAAA下的BBBB

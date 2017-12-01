@@ -1,0 +1,102 @@
+20171112 事务的基础
+1、mysql的事务
+mysql中的事务是自动提交的，一条sql语句就是一个事务。
+    开启手动事务的方式
+    方式一：关闭自动事务（set autocommit=off）
+    方式二：手动开启一个事务
+                    start transaction;--开启事务
+                    commit;---提交事务
+                    rollback;---回滚事务
+    扩展：oracle中的事务默认是手动的，必须要手动提交
+
+例如：创建数据库和表：
+
+2、java的事务
+    Connection接口中的api
+    seAutoCommit(true)
+    commit()
+    rollback()
+    扩展：了解Savepoint还原点
+    void rollback(Savepoint s)
+    Savepoint setSavepoint() 设置还原点
+
+3、实际应用
+☆☆☆☆☆☆☆☆
+初级思路：
+    例子3-1 在service层控制事务，在service层创建连接，传递连接给dao层，
+    在事务逻辑的前后2端加上事务控制和处理，从而实现事务控制。
+        AccountDao dao = new AccountDao();
+        Connection conn=null;
+        try {
+            //0.开启事务
+            conn = JdbcUtils.getConnection();
+            conn.setAutoCommit(false);
+            //1.转出
+            dao.accountOut(conn,fromUser,money);
+            int i=1/0;
+            //2.转入
+            dao.accountIn(conn,toUser,money);
+            //3.事务提交
+            conn.commit();
+            JdbcUtils.closeConn(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+            //事务回滚
+            conn.rollback();
+            JdbcUtils.closeConn(conn);
+            throw e;
+            }
+
+    以上实例中出现了代码侵入，要在service逻辑层创建数据库连接，然后传递给dao层，实现对事务控制，那如何避免代码侵入呢
+
+升级思路：
+    将connection对象绑定到当前线程
+    jdk中有一个类 ThreadLocal 。通常是类中的private static 字段，他们希望将状态与某一个线程相关联
+     ThreadLocal的构造：   --内部维护了一个Map
+        new ThreadLocal()
+     set(Object value) 将内容和当前线程绑定
+     Object get(Object value) 获取和当前线程绑定的内容
+     remove()  移除和当前线程绑定的内容
+
+写一个工具类MyDataSourceUtil  加入连接绑定至当前线程
+com.lucy.dao.datatool.MyDataSourceUtil
+
+
+
+4 事务的总结：
+ ACID
+ 原子性：事务中的操作单元不可切割，要么全部成功，要么全部失败
+ 一致性：事务执行前后，业务状态和其他业务状态要保持一致。比如转账前后的总钱数一样
+ 隔离性：事务执行的时候，最好不要受其他事务的影响
+ 持久性：事务提交或者回滚了，这个状态都要持久化到数据库中
+
+ 不考虑隔离性的话，会读出现的问题：
+ 脏读：在一个事务中读取到了另一个事务没有提交的数据
+ 不可重复读：一个事务中，两次查询的结果不一致（针对update操作）
+ 虚度（幻读）：在一个事务中，两次查询的结果不一致（针对insert操作）
+
+ 通过设置数据库的隔离级别来避免上面的问题(理解)
+     read uncommited  读未提交   上面三个问题都会出现
+     read commited  读已提交     可以避免脏读
+     repeatable read  可重复读   可以避免脏读和不可重复读
+     serializable  串行化        可避免上面三个问题
+
+5 mysql数据库隔离级别的设置
+  set session transaction isolation level read uncommited
+  查看数据库的隔离级别
+  select @@tx_isolation
+
+四种级别的效率：
+  read uncommited >  read commited >repeatable read> serializable
+四种级别的安全性：
+  read uncommited < read commited <repeatable read<serializable
+
+  开发中绝对不允许脏读发生
+   mysql中默认级别 repeatable read
+   oralcle的默认级别  read commited
+
+ 6 java的事务隔离级别的设置
+ Connection api
+ conn.setTranctionIsolation(int level)
+
+ 开发中一般的默认隔离级别已经够使用了，所以一般不需要更改

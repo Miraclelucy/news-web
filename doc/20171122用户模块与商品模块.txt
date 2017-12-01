@@ -1,0 +1,56 @@
+20171122 用户模块与商品模块
+1 用户：
+    BaseServlet;
+    日期转换器；
+    激活；
+2 缓存公共组件部分的数据，
+    如上方导航栏，要想所有的页面都有分类导航，必须分离出来，
+    然后在其他的页面动态包含，只需要在页面加载成功之后，用ajax请求异步查询。
+    思考问题：以上我们已经可以在每个页面上查看到分类信息了,但是只要换一次页面就会查询一下数据库,增加服务器的压力,
+         	对于数据不常变化的情况,我们可以使用缓存技术。常见的缓存技术：ehcache、memcache、redis
+    ehcache使用步骤:
+    			1.导入jar包
+    			2.编写配置文件
+    			3.使用api：获取数据先从缓存中获取
+    					若获取的值为空，去查询数据库,并将数据放入缓存中
+    缓存中获取一般放在service层，不直接从数据库获取，先从缓存中获取
+3 访问一个servlet,servlet中将数据放入request域中，并做请求转发；
+  ajax请求数据；
+
+4 解耦 ：service与dao层解耦
+
+   最原始的方式：
+       在ProductService中,调用dao
+       ProductDao pDao=new ProductDaoImpl()
+       这里的dao是通过dbutils实现的curd,现在我们学习了
+       hibernate,我们编写productDaoHibImpl()
+       然后在service中需要修改之前的代码
+       修改成
+       ProductDao pDao=new productDaoHibImpl()
+
+       为了解决耦合,我们可以使用工厂模式
+       可以通过
+       ProductDao pDao=beanfactory.getProductDao();
+       我希望作一个通用的方式,不需要修改任何java代码就可以随意的修改dao层的实现类(修改配置文件):
+       例如:配置文件名称为 bean.xml 内容如右边
+            <beans>
+               <bean id="ProductDao" class="com.itheima.dao.impl.ProductDaoImpl">
+               <bean id="UserDao" class="com.itheima.dao.impl.UserDaoImpl">
+               <bean id="CategoryDao" class="com.itheima.dao.impl.CategoryDaoImpl">
+            </beans>
+
+        Bean工厂的具体实现
+        BeanFactory{
+            public static Object getBean(String id){
+                return  ...;
+                思路:
+                通过参数给定的id去bean.xml文件中查找id为指定值的bean标签,获取bean标签的class属性
+                通过
+                Class.forName(class的属性值).newInstance();
+            }
+        }
+
+        获取bean:
+        ProductDao pDao=Beanfactory.getBean("ProductDao");
+
+        以后修改实现类的时候,只需要将指定的bean便签中的class变化一下即可,java代码不需要改变,这样就可以实现解耦了

@@ -1,0 +1,47 @@
+20171104学习笔记：
+1 truncate 和delete的区别
+truncate干掉表，然后创建一张表
+delete是逐条删除记录
+
+2 auto_increment  要求是int型的，主键
+
+3jdbc与连接池
+（1）最初版本的方法：
+使用jdbc的时候，每操作一次都需要获取连接，jdbcUtils的包
+创建用完之后把连接释放掉，这种方法很耗时。通过连接池可以优化。
+（2）常见的连接池：
+dbcp c3p0 ali
+（3）连接池作用：
+管理数据库的连接，提高项目的性能。
+需要用的时候从连接池中取连接，不用就归还。
+（4）连接池实现
+所有连接池必须实现一个接口javax.sql.DataSource
+获取连接的方法Connection getConnection()
+归还连接的方法connection.close()
+（5）静态代理-装饰者模式
+  装饰者和被装饰者要集成同一个类或实现同一个接口
+  装饰者要有被装饰者的引用
+
+4 c3p0使用
+ 两种方式配置c3p0的源文件
+ 方式一：在配置文件中设置：
+ c3p0.driverClass=com.mysql.jdbc.Driver
+ c3p0.jdbcUrl=jdbc:mysql://10.10.69.131:3306/atest
+ c3p0.user=ossm
+ c3p0.password=dGlEh&AcI#*gRz1RX
+ 方式二：硬编码
+ ComboPooledDataSource ds= new ComboPooledDataSource();
+ ds.setDriverClass("com.mysql.jdbc.Driver");
+ ds.setJdbcUrl("jdbc:mysql://10.10.69.131:3306/atest");
+ ds.setUser("ossm");
+ ds.setPassword("dGlEh&AcI#*gRz1RX");
+
+5 dbutils包的应用 导入apche公司的commons-dbutils-1.5.jar
+主要方法 QueryRunner 的query和update
+ArrayHandler
+ArrayListHandler
+BeanHandler
+BeanListHandler
+ScalarHandler  返回long值，集合的总记录数
+
+

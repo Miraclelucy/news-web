@@ -1,0 +1,15 @@
+20171104学习笔记
+1 intellij快捷键
+for：for
+psv:  public static void main(String[] args) {
+
+        }
+sout: System.out.println();
+
+2 项目classpath的最顶层就是src目录；
+
+3 alt+enter健 引入包
+
+4 在idea中添加try/catch的快捷键 ctrl+alt+t 选中想被try/catch包围的语句
+
+5 alt+insert健 生成getter、setter方法

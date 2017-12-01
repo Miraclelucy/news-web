@@ -1,0 +1,72 @@
+20171114 监听器 过滤器
+1 listener 监听器
+监听web中的域对象
+ServletContext ServletRequest HttpSession
+监听内容：
+（1）监听三个对象的创建和销毁； ServletContextListener ServletRequestListener HttpSessionListener
+        ServletContextListener
+			ServletContext创建:服务器启动的时候,会为每一个项目都创建一个servletContext
+			ServletContext销毁:服务器关闭的时候,或者项目被移除的时候
+			以后用来加载配置文件
+		ServletRequestListener
+			Request创建:请求来的时候
+			Request销毁:响应生成的时候
+		HttpSessionListener
+			Session创建:
+				java中第一次调用request.getSession的时候
+				jsp访问的时候创建
+			Session销毁:
+				三种情况:
+					session超时
+					手动销毁session
+					服务器非正常关闭
+（2）监听三个对象属性的变化；ServletContextAttributeListener ServletRequestAttributeListener HttpSessionAttributeListener
+
+（3）监听session中的javabean状态； HttpSessionActivationListener(钝化和活化)  HttpSessionBindingListener (绑定和解绑)
+注意：
+listener全部是接口
+使用步骤：
+    编写一个类 实现接口；
+    重写方法；
+    编写配文件；
+
+2 filter 过滤器
+    过滤请求和响应
+        常见作用：
+            自动登录；
+            统一编码；
+            过滤关键字；
+  filter接口的方法：
+    init(FilterConfig config)
+    doFilter(ServletRequest request,ServletResponse rep,FilterChain chain)
+    destroy()
+    filter单实例多线程
+
+    生命周期：服务器启动的时候创建。调用init方法；
+        请求来的时候，创建线程，根据路径调用dofilter；
+    销毁：
+    filterChain的dofilter方法，可以将请求放行到下一个过滤器，直到最后一个过滤器放行。才能访问到servlet|jsp
+    url-pattern 配置
+    完全匹配  必须以/开始
+    目录匹配    必须以/开始，以*结束
+    后缀名匹配  以*开始 一字符结束
+
+     demo可以见web.xml中的配置
+
+3 根据过滤器实现自动登录
+
+4 自动登录补充：
+  自动登录只能登录一次；
+  自动登录不需要过滤登录的、注册的相关操作；
+  （也就是如果用户是通过页面手动登录时，就不要执行自动登录；
+     另外还有一些资源的访问不要登录就可以访问的，就不需要自动登录了，减少和数据库的交互）
+
+5 filter知识补充：
+filterConfig 和servletConfig的几个方法类似
+    获取filter的名称； getFilterName()
+    获取指定的初始化参数值；getInitParameter()
+    获取所有的初始化参数的名字；getInitParameterNames()
+    获取ServletContext;  getServletContext()
+ dispatcher:  （掌握）
+ 匹配是哪一种请求方式；
+

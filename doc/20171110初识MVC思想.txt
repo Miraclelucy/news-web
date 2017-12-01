@@ -1,0 +1,31 @@
+20171110初识MVC思想
+servlet---缺点：生成html内容太麻烦
+jsp---缺点：阅读起来不方便，维护起来比较困难
+jsp+javabean----
+        jsp的model1:
+          jsp:接收请求，展示数据
+          javabean: 和数据打交道
+
+jsp+javabean+servlet----  MVC
+        jsp的model2:
+         jsp:展示数据  V
+         javabean: 和数据打交道  M
+         servlet:接收请求，处理业务逻辑  C
+
+MVC:是一种思想，将业务逻辑和显示，
+        Model：模型  封装数据
+        View：视图  展示数据
+        Controller：控制   接收请求，找到对应的bean完成业务逻辑
+
+详解jsp的model1:  （直接通过bean在页面之间传递值）
+    <jsp:useBean id="user" class="com.lucy.bean.Admin"  ></jsp:useBean>
+    <jsp:setProperty name="user" property="adminPwd"></jsp:setProperty>  //可以查看该语句生成的后的java代码
+    <jsp:getProperty name="user" property="adminName"></jsp:getProperty>
+    <jsp:getProperty name="user" property="adminPwd"></jsp:getProperty>
+    //源码查询：org.apache.jasper.runtime.JspRuntimeLibrary.introspecthelper
+
+详解jsp的model2:
+
+javaee的三层架构：
+Filter servlet Listener 是javaee中的三大组件
+框架都是对三大组件的封装

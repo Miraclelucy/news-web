@@ -1,0 +1,95 @@
+20171105 web服务器相关概念
+1 常见的web服务器
+服务器名称     厂商       特点
+weblogic    oracle    大型的免费的支持所有javaee规范的服务器
+webspere    IBM       大型的免费的支持所有javaee规范的服务器
+tomcat      apache    中小型的免费的支持servlet和jsp规范的服务器
+
+2 ☆☆☆servlet生命周期
+init 默认第一次访问时调用
+service 每次被访问的时候都会被调用
+destroy 服务器正常关闭的时候被销毁
+
+servlet是单实例多线程的
+
+3 ☆☆load-on-startup
+Demo----服务启动的时候，启动一个线程
+public class MsgInitServlet extends HttpServlet {
+	protected Logger logger = LoggerFactory.getLogger(getClass());
+	private SmsJyHttpMange smsJyHttpMange;
+	public final void init() throws ServletException {
+		logger.info("   启动短信线程：SmsJyHttpMange 短信发送程序.");
+		if(smsJyHttpMange == null){
+			smsJyHttpMange = new SmsJyHttpMange();
+			new Thread(smsJyHttpMange).start();
+		}
+	}
+}
+
+4☆☆tomcat服务器默认的servlet
+    <servlet>
+        <servlet-name>default</servlet-name>
+        <servlet-class>org.apache.catalina.servlets.DefaultServlet</servlet-class>
+        <init-param>
+            <param-name>debug</param-name>
+            <param-value>0</param-value>
+        </init-param>
+        <init-param>
+            <param-name>listings</param-name>
+            <param-value>false</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>/</url-pattern>
+    </servlet-mapping>
+
+5 ☆☆绝对路劲和相对路径
+相对路径：
+    当前路径  ./ 或者什么都不写
+    上一级路径  ../
+绝对路径： ☆☆------------------------------华丽分割线，需要加深理解---------------------------------------
+    带协议和主机的 http://10.10.69.186/xxx  （访问外站资源时，需要带上主机和协议）
+    不带协议和主机  /jeesite/a/mylogin  (项目名称+路径)  ---推荐并常用的方法
+内部路径：（针对页面而言） ☆☆----------------------------华丽分割线，需要加深理解----------------------------------------
+    不带协议和主机并且去掉项目名称，一般在静态包含，动态包含和转发请求的时候用到。
+    静态包含：include指令<%@ include file="被包含文件" %>；
+    动态包含：<jsp:include page="被包含文件" />
+
+
+6 相应头的设置
+ refresh 属性
+ response.setHeader("refresh","3,url=/admin/login.jsp") 秒数；url=跳转的路径
+
+7 ☆☆☆ServletContext  上下文 所有的servlet可见
+常用方法：
+setAttribute()
+getAttribute()
+removeAttribute()
+在loginServlet中获取全局管理者，获取登陆成功的总次数；值加1并设置回去
+
+demo见com.lucy.servlet.AdminLoginServlet
+
+几个重要的方法：
+String getReaPath(String  path) 获取文件部署到tomcat上的真实路径（带有tomcat的路径）
+      例如 getReaPath("/") 项目的物理路径
+InputStream  getResourceAsStream() 以流的形式返回一个文件
+String getMimetype(String filename) 获取文件的类型 例如图片的类型image/jpeg
+
+获取文件路径的方式
+通过类加载获取文件的物理路径  （项目的src下文件）
+类.class.getClassLoader.getResource("2.text").getPath;
+
+request.getContextPath()是在开发Web项目时，经常用到的方法，其作用是获取当前的系统路径。
+当使用Tomcat作为Web服务器，项目一般部署在Tomcat下的webapps的目录下。具体来说主要用两种部署的路径：
+一是将web项目中的webRoot下的文件直接拷贝到webapps/ROOT下（删除ROOT下的原有文件）；
+另一中方法在Tomcat下的webapps中创建以项目名称命名（当然也可以用其他的名称）的文件夹，并将webRoot下的文件直接拷贝到该文件夹下。
+对于第一部署方法，request.getContextPath()的返回值为空（即："",中间无空格，注意区分null)。
+对于第二部署方法，其返回值为：/创建的文件夹的名称。
+
+8 ServletConfig  至针对单个的servlet
+是有服务器创建的，创建了servlet的同时，也创建了这个对象；
+通过init方法传给servlet
+demo见com.lucy.servlet.AdminLoginServlet
+

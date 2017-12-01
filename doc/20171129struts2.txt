@@ -1,0 +1,102 @@
+20171129
+1 struts访问流程
+  struts的核心配置；struts的常量配置；struts的配置中通配符的应用；
+2 action的3中实现方式
+   方式1: POJO简单java类
+   方式2: 实现Action接口 （不常用）
+   // 里面有execute方法,提供action方法的规范.
+   // Action接口预置了一些字符串.可以在返回结果时使用.为了方便
+   方式3: 继承ActionSupport （常用）
+   // 帮我们实现了 Validateable, ValidationAware, TextProvider, LocaleProvider .
+   //如果我们需要用到这些接口的实现时,不需要自己来实现了.
+3  4种结果返回方式
+    <!-- 比较常用： 转发 -->
+ 		<action name="Demo1Action" class="cn.itheima.a_result.Demo1Action" method="execute" >
+ 			<result name="success" type="dispatcher" >/hello.jsp</result>
+ 		</action>
+ 	<!-- 比较常用：重定向 -->
+ 		<action name="Demo2Action" class="cn.itheima.a_result.Demo2Action" method="execute" >
+ 			<result name="success" type="redirect" >/hello.jsp</result>
+ 		</action>
+ 	<!-- 转发到Action -->
+ 		<action name="Demo3Action" class="cn.itheima.a_result.Demo3Action" method="execute" >
+ 			 <result name="success" type="chain">
+ 			 		<!-- action的名字 -->
+ 	             <param name="actionName">Demo1Action</param>
+ 	             	<!-- action所在的命名空间 -->
+ 	             <param name="namespace">/</param>
+ 	         </result>
+ 		</action>
+ 		<!-- 比较常用：重定向到Action -->
+ 		<action name="Demo4Action" class="cn.itheima.a_result.Demo4Action" method="execute" >
+ 			<result  name="success"  type="redirectAction">
+ 				 <!-- action的名字 -->
+ 	             <param name="actionName">Demo1Action</param>
+ 	             <!-- action所在的命名空间 -->
+ 	             <param name="namespace">/</param>
+             </result>
+ 		</action>
+
+4 访问ServletApi的3种方式：
+    （1）通过ActionContext获得；
+            //request域=> map (struts2并不推荐使用原生request域)
+    		//不推荐
+    		Map<String, Object> requestScope = (Map<String, Object>) ActionContext.getContext().get("request");
+    		//推荐
+    		ActionContext.getContext().put("name", "requestTom");
+    		//session域 => map
+    		Map<String, Object> sessionScope = ActionContext.getContext().getSession();
+    		sessionScope.put("name", "sessionTom");
+    		//application域=>map
+    		Map<String, Object> applicationScope = ActionContext.getContext().getApplication();
+    		applicationScope.put("name", "applicationTom");
+    （2）通过ServletActionContext获得；
+            //原生request
+    		HttpServletRequest request = ServletActionContext.getRequest();
+    		//原生session
+    		HttpSession session = request.getSession();
+    		//原生response
+    		HttpServletResponse response = ServletActionContext.getResponse();
+    		//原生servletContext
+    		ServletContext servletContext = ServletActionContext.getServletContext();
+    （3）实现接口ServletRequestAware
+             //本质是拦截器会拦截实现了接口的action，
+                如果这个action实现了ServletRequestAware接口，就会把ActionContext中的request域赋值给这个action的request属性
+            public class Demo7Action extends ActionSupport implements ServletRequestAware {
+                private HttpServletRequest request;
+                @Override
+                public void setServletRequest(HttpServletRequest request) {
+                    this.request = request;
+                }
+                public String execute() throws Exception {
+
+                    System.out.println("原生request:"+request);
+                    return SUCCESS;
+                }
+            }
+
+5 如何获得参数？
+servlet的生命周期：在运行期间只有一个Servlet实例，是线程不安全的，不能使用成员变量；
+action的生命周期：每次请求都会创建一个新的Action实例；
+ （1）属性驱动；在action中添加与健值名称相同的属性；会自动转换8大基本类型；会把特定类型的字符串转换Date
+ （2）对象驱动： 将健值封装成对象，action中用属性接收
+ （3）模型驱动： 实现ModelDriver<T>：
+    使用ModelDriven接收参数(推荐使用)
+ 　　　和Domain主要不同：
+ 　　　　1.User对象需要实例化
+ 　　　　2.不需要给User对象配置getter和setter方法
+ 　　　　3.需要实现ModelDriven接口
+            @Override
+               public User getModel() {
+               return user;
+               }
+ 　　　　4.JSP中input的name属性不需要加对象.(user.)
+
+    接收集合类型，Map类型 ：参考接收https://www.cnblogs.com/Springmoon-venn/p/5582312.html
+
+
+6 例子：
+
+
+
+

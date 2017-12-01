@@ -1,0 +1,59 @@
+20171106 cookie和session
+1 jsp小脚本
+三种
+<%  %> 程序片段
+<%=  %> 输出表达式
+<%!  %> 申明成员变量
+
+2 cookie
+cookie是服务器产生的，通过response的addCookie将cookie写回浏览器（set-cookie） 保留在浏览器上
+浏览器通过一定的规则携带不同的cookie(通过request的头cookie) 我们服务器可以接受cookie
+
+demo:实现用户的退出页面，记录该页面，下次访问时直接进入该页面。
+记录用户的最后一次浏览界面
+
+
+cookie的api
+创建一个Cookie
+new Cookie(String lsy,String value)
+写回浏览器
+response.addCookie();
+获取Cookie
+Cookie[]  request.getCookies()
+
+cookie常用的方法
+getName();
+getValue();
+setMaxAge(int 秒) ：设置cookie在浏览器中的存活时间，以秒为单位
+若设置为0，则删除改cookie（前提，必须路径一致）
+setPath(String path):设置cookie的路径。当我们访问的路径中包含此path,则携带。 【该方法没有做实验，后续需要用到时，要仔细研究】
+默认路径：访问servlet的路径
+例如访问路径/day09/a/b/hello
+那么默认路径就为/day09/a/b
+
+手动设置: /项目路径/   (手动设置时，最好在最后面加上斜杠，因为针对不同的浏览器，加上斜杠是最稳定的)
+
+
+3 session（需加强）
+服务器端的会话技术，session存在服务器端；
+当第一次访问服务器的时候，服务器获取jsessionid
+如果获取到jsessionid
+    根据jsessionid去服务器查找session：
+        找到了：将数据保存在session，将当前session返回给浏览器；
+        没找到：创建一个session，将数据保存在session中，将当前session返回给浏览器；
+不能获取jsessionid,创建一个session，将数据保存在session中，将当前session返回给浏览器；
+
+获取一个Session：
+request.getSession();
+
+域对象
+request.getSession().getAttribute(String key);
+request.getSession().setAttribute(String key,object);
+
+生命周期：创建：第一次调用request.getSession();
+        销毁：
+            服务器非正常关闭或者session过期；
+                默认时间在web.xml中有设置 ；setMaxInactiveInterval(int 秒) 手动设置超时时间
+            手动干掉session：界面中的退出按钮；session.invalidate();
+参考帖子：
+http://www.cnblogs.com/woshimrf/p/5317776.html
