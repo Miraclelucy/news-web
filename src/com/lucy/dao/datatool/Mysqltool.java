@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import com.lucy.until.Connsql;
 
 /**  
- * @Title: Mysqltool.java
+ * @Title: 初级版本--已废弃
  * @Package com.lucy.dao.datatool
  * @Description: 
  * @author lushiqin  

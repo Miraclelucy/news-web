@@ -2,8 +2,10 @@ package com.lucy.servlet;
 
 import com.lucy.bean.News;
 import com.lucy.bean.Type;
-import com.lucy.common.BaseServlet;
-import com.lucy.dao.ResolveNews;
+import com.lucy.common.BeanFactory;
+import com.lucy.service.Typeservice;
+import com.lucy.servlet.common.BaseServlet;
+import com.lucy.servlet.common.ResolveNews;
 import com.lucy.service.Newsservice;
 import com.lucy.until.ResponseUtil;
 import com.lucy.until.StringUtil;
@@ -15,7 +17,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,6 +27,8 @@ import java.util.List;
  */
 @WebServlet(name="newsServlet", urlPatterns={"/admin/news"},loadOnStartup=1)
 public class NewsServlet extends BaseServlet {
+    Newsservice newsservice= (Newsservice) BeanFactory.getBean("Newsservice");
+    Typeservice typeservice= (Typeservice) BeanFactory.getBean("Typeservice");
 
     public String save(HttpServletRequest req, HttpServletResponse resp){
         String title = req.getParameter("newTitle");
@@ -38,7 +41,7 @@ public class NewsServlet extends BaseServlet {
         System.out.println("从表格中接受到的值："+title);
         System.out.println("从表格中接受到的值："+content);
         System.out.println("从表格中接受到的值："+typeId);
-        Type type=new com.lucy.service.Typeservice().gettypeName(typeId);
+        Type type=typeservice.gettypeName(typeId);
         News news = new News(title,content, type.getTypeName(), newtTime);
         if(StringUtil.isNotEmpty(id)){
             news.setNewId(Integer.parseInt(id));
@@ -47,9 +50,9 @@ public class NewsServlet extends BaseServlet {
 
         JSONObject result=new JSONObject();
         if(StringUtil.isNotEmpty(id)){
-            flag=new Newsservice().upnews(news);
+            flag=newsservice.upnews(news);
         }else{
-            flag=new Newsservice().insertnew(news);
+            flag=newsservice.insertnew(news);
         }
         if(flag==true){
             result.put("success", "true");
@@ -68,7 +71,7 @@ public class NewsServlet extends BaseServlet {
 
     public String del(HttpServletRequest req, HttpServletResponse resp) {
         String delIds=req.getParameter("delIds");
-        boolean flag=new com.lucy.service.Newsservice().delnewsbyid(delIds);
+        boolean flag=newsservice.delnewsbyid(delIds);
         JSONObject result=new JSONObject();
         if(flag==true){
             result.put("success", "true");
@@ -86,10 +89,10 @@ public class NewsServlet extends BaseServlet {
     }
 
     public String list(HttpServletRequest req, HttpServletResponse resp) {
-        ArrayList<News> news=new com.lucy.service.Newsservice().getnews();
+        List<News> news=newsservice.getnews();
         JSONObject result=new JSONObject();
         JSONArray jsonArray=JSONArray.fromObject(news);
-        int total=new com.lucy.service.Newsservice().countnew();
+        int total=newsservice.countnew();
         result.put("rows", jsonArray);
         result.put("total", total);
 

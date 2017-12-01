@@ -1,9 +1,7 @@
-package com.lucy.dao.c3p0tool;
+package com.lucy.dao.demo;
 import com.lucy.bean.User;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
-import java.beans.PropertyVetoException;
-import java.sql.Array;
 import java.sql.Connection;
 import java.util.Arrays;
 import java.util.*;
@@ -19,9 +17,13 @@ import org.apache.commons.dbutils.handlers.*;
  * @修改人和其它信息
  */
 public class C3p0Demo {
+
     public static void main(String[] args) throws Exception {
+        //空参，自动到classpath目录下面加载“c3p0-config.xml”或者c3p0.properties配置文件---配置文件的存储位置和名称必须是这样，且使用“默认配置”
         ComboPooledDataSource ds= new ComboPooledDataSource();
-       /* ds.setDriverClass("com.mysql.jdbc.Driver");
+        //ComboPooledDataSource pool = new ComboPooledDataSource("demo");//加载“c3p0-config.xml”文件中定义的“demo”这个配置元素
+
+        /* ds.setDriverClass("com.mysql.jdbc.Driver");
         ds.setJdbcUrl("jdbc:mysql://10.10.69.131:3306/atest");
         ds.setUser("ossm");
         ds.setPassword("dGlEh&AcI#*gRz1RX");*/
@@ -50,5 +52,4 @@ public class C3p0Demo {
 
 
     }
-
 }

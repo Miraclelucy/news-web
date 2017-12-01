@@ -1,4 +1,4 @@
-package com.lucy.dao.c3p0tool;
+package com.lucy.dao.demo;
 
 import org.dom4j.Document;
 import org.dom4j.Element;

@@ -1,26 +1,32 @@
 package com.lucy.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lucy.bean.User;
+import com.lucy.common.BeanFactory;
+import com.lucy.dao.TypeDao;
+import com.lucy.dao.UserDao;
 
 public class Userservice {
+	UserDao userDao=(UserDao) BeanFactory.getBean("UserDao");
+
 	public boolean adduser(User user) {
-		return new com.lucy.dao.GetUser().adduser(user);
+		return userDao.adduser(user);
 	}
-	public ArrayList<User> getall(){
-		return new com.lucy.dao.GetUser().getall();
+	public List<User> getall(){
+		return userDao.getall();
 	}
 	public int countuser(){
-		return new com.lucy.dao.GetUser().countuser();
+		return userDao.countuser();
 	}
 	public boolean deluser(String ids) {
-		return new com.lucy.dao.GetUser().deluser(ids);
+		return userDao.deluser(ids);
 	}
 	public boolean upuser(User user) {
-		return new com.lucy.dao.GetUser().upuser(user);
+		return userDao.upuser(user);
 	}
 	public int  checkLogin(String name, String pwd){
-		return new com.lucy.dao.GetUser().checkLogin(name,pwd);
+		return userDao.checkLogin(name,pwd);
 	}
 }

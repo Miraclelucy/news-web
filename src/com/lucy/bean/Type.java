@@ -3,6 +3,10 @@ package com.lucy.bean;
 public class Type {
 	private int typeId;
 	private String typeName;
+	public Type(){
+		super();
+	}
+
 	public Type(String typeName){
 		this.typeName=typeName;	
 	}

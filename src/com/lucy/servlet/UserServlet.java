@@ -1,7 +1,10 @@
 package com.lucy.servlet;
 
 import com.lucy.bean.User;
-import com.lucy.common.BaseServlet;
+import com.lucy.common.BeanFactory;
+import com.lucy.service.Typeservice;
+import com.lucy.service.Userservice;
+import com.lucy.servlet.common.BaseServlet;
 import com.lucy.until.ResponseUtil;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @描述
@@ -20,6 +24,8 @@ import java.util.ArrayList;
  */
 @WebServlet(name="userServlet", urlPatterns={"/admin/user"},loadOnStartup=1)
 public class UserServlet extends BaseServlet {
+    Userservice userservice= (Userservice) BeanFactory.getBean("Userservice");
+
     /**
      *@描述   保存信息
      *@参数
@@ -36,7 +42,7 @@ public class UserServlet extends BaseServlet {
         String email=req.getParameter("email");
         String add=req.getParameter("add");
         User user=new User(name,sex,pwd,email,add);
-        boolean flag=new com.lucy.service.Userservice().adduser(user);
+        boolean flag=userservice.adduser(user);
         if(flag){
             return  "/user/succRegister.jsp";
         }else{
@@ -55,7 +61,7 @@ public class UserServlet extends BaseServlet {
         int id=Integer.parseInt(req.getParameter("userId"));
         int useState=Integer.parseInt(req.getParameter("useState"));
         User user=new User(id,useState);
-        boolean flag=new com.lucy.service.Userservice().upuser(user);
+        boolean flag=userservice.upuser(user);
         JSONObject result=new JSONObject();
         if(flag==true){
             result.put("success", "true");
@@ -75,7 +81,7 @@ public class UserServlet extends BaseServlet {
 
      public String del(HttpServletRequest req, HttpServletResponse resp) {
         String delIds=req.getParameter("delIds");
-        boolean flag=new com.lucy.service.Userservice().deluser(delIds);
+        boolean flag=userservice.deluser(delIds);
         JSONObject result=new JSONObject();
         if(flag==true){
             result.put("success", "true");
@@ -93,10 +99,10 @@ public class UserServlet extends BaseServlet {
     }
 
     public String list(HttpServletRequest req, HttpServletResponse resp) {
-        ArrayList<User> user = new com.lucy.service.Userservice().getall();
+        List<User> user = userservice.getall();
         JSONObject result = new JSONObject();
         JSONArray jsonArray = JSONArray.fromObject(user);
-        int total = new com.lucy.service.Userservice().countuser();
+        int total = userservice.countuser();
         result.put("rows", jsonArray);
         result.put("total", total);
 
@@ -112,7 +118,7 @@ public class UserServlet extends BaseServlet {
     public String login(HttpServletRequest req, HttpServletResponse resp) {
         String name=req.getParameter("name");
         String pwd=req.getParameter("pwd");
-        int flag=new com.lucy.service.Userservice().checkLogin(name,pwd);
+        int flag=userservice.checkLogin(name,pwd);
         String Msg="";
         if(flag==0){
             Msg= "您的账号不存在!";

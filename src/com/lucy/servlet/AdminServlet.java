@@ -1,7 +1,9 @@
 package com.lucy.servlet;
 
 import com.lucy.bean.Admin;
-import com.lucy.common.BaseServlet;
+import com.lucy.common.BeanFactory;
+import com.lucy.dao.AdminDao;
+import com.lucy.servlet.common.BaseServlet;
 import com.lucy.service.Adminservice;
 import com.lucy.until.CookieUtils;
 import com.lucy.until.ResponseUtil;
@@ -17,6 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @描述
@@ -27,6 +30,8 @@ import java.util.ArrayList;
 
 @WebServlet(name="adminServlet", urlPatterns={"/admin"},loadOnStartup=1)
 public class AdminServlet extends BaseServlet {
+    Adminservice adminservice= (Adminservice) BeanFactory.getBean("Adminservice");
+
     /**
      *@描述   保存信息
      *@参数
@@ -46,9 +51,9 @@ public class AdminServlet extends BaseServlet {
         }
         JSONObject result=new JSONObject();
         if(StringUtil.isNotEmpty(adminId)){
-            flag=new Adminservice().upadmin(admin);
+            flag=adminservice.upadmin(admin);
         }else{
-            flag=new com.lucy.service.Adminservice().add(admin);
+            flag=adminservice.add(admin);
         }
         if(flag==true){
             result.put("success", "true");
@@ -68,7 +73,7 @@ public class AdminServlet extends BaseServlet {
 
     public String del(HttpServletRequest req, HttpServletResponse resp) {
         String delIds=req.getParameter("delIds");
-        boolean flag=new com.lucy.service.Adminservice().del(delIds);
+        boolean flag=adminservice.del(delIds);
         JSONObject result=new JSONObject();
         if(flag==true){
             result.put("success", "true");
@@ -86,10 +91,10 @@ public class AdminServlet extends BaseServlet {
     }
 
     public String list(HttpServletRequest req, HttpServletResponse resp) {
-        ArrayList<Admin> admin=new com.lucy.service.Adminservice().getall();
+        List<Admin> admin=adminservice.getall();
         JSONObject result=new JSONObject();
         JSONArray jsonArray=JSONArray.fromObject(admin);
-        int total=new com.lucy.service.Adminservice().countadmin();
+        int total=adminservice.countadmin();
         result.put("rows", jsonArray);
         result.put("total", total);
 
@@ -121,7 +126,7 @@ public class AdminServlet extends BaseServlet {
             resp.sendRedirect(req.getContextPath() + "/checkLogin.jsp");
         } else {
 
-            boolean flag = new com.lucy.service.Adminservice().checkAdmin(name, pwd);
+            boolean flag = adminservice.checkAdmin(name, pwd);
 
             //统计登陆人数
             ServletContext servletContext = getServletContext();

@@ -1,33 +1,34 @@
 package com.lucy.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
-import com.lucy.bean.News;
 import com.lucy.bean.Type;
+import com.lucy.common.BeanFactory;
+import com.lucy.dao.NewsDao;
+import com.lucy.dao.TypeDao;
 
 public class Typeservice {
-	
-	
-	/**
-	 * 新闻类型CRUD
-	 */
-	public ArrayList<Type> gettype() {
-		return new com.lucy.dao.GetType().gettype();
+
+	TypeDao typeDao=(TypeDao) BeanFactory.getBean("TypeDao");
+
+	public List<Type> gettype() {
+		return typeDao.gettype();
 	}
 	public Type gettypeName(int typeId) {
-		return new com.lucy.dao.GetType().gettypeName(typeId);
+		return typeDao.gettypeName(typeId);
 	}
 	
 	public int counttype(){
-		return new com.lucy.dao.GetType().counttype();
+		return typeDao.counttype();
 	}
 	public boolean  deletetype(String str){
-		return new com.lucy.dao.GetType().deletetype(str);
+		return typeDao.deletetype(str);
 	}
 	public boolean  inserttype(String str){
-		return new com.lucy.dao.GetType().inserttype(str);
+		return typeDao.inserttype(str);
 	}
 	public boolean uptype(Type type) {
-		return new com.lucy.dao.GetType().uptype(type);
+		return typeDao.uptype(type);
 	}
 }

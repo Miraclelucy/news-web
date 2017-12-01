@@ -1,6 +1,9 @@
 package com.lucy.servlet;
 
-import com.lucy.common.BaseServlet;
+import com.lucy.common.BeanFactory;
+import com.lucy.service.Adminservice;
+import com.lucy.service.Bbsservice;
+import com.lucy.servlet.common.BaseServlet;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -10,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @WebServlet(name="bbsServlet", urlPatterns={"/bbs"},loadOnStartup=1)
 public class BbsServlet extends BaseServlet{
+	Bbsservice bbsservice= (Bbsservice) BeanFactory.getBean("Bbsservice");
 
 
 	public String save(HttpServletRequest request, HttpServletResponse response)
@@ -19,7 +23,7 @@ public class BbsServlet extends BaseServlet{
 		  String name=request.getParameter("name");	
           String title=request.getParameter("title");
           String text=request.getParameter("text"); 
-          boolean flag=new com.lucy.service.Bbsservice().insetbbs(name, title, text);
+          boolean flag=bbsservice.insetbbs(name, title, text);
           response.sendRedirect("bbs/bbs.jsp");
 		return "";
 	}
@@ -27,7 +31,7 @@ public class BbsServlet extends BaseServlet{
 	public String del(HttpServletRequest request, HttpServletResponse response) throws  IOException{
 		int id=Integer.parseInt(request.getParameter("bbsid"));
 		System.out.println(id);
-		boolean flag= new com.lucy.service.Bbsservice().delbbs(id);
+		boolean flag= bbsservice.delbbs(id);
 		if(flag){
 			//response.sendRedirect(request.getContextPath()+"");
 			return "/admin/bbs.jsp";

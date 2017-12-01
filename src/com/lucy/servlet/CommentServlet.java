@@ -1,7 +1,9 @@
 package com.lucy.servlet;
 
 import com.lucy.bean.Comment;
-import com.lucy.common.BaseServlet;
+import com.lucy.common.BeanFactory;
+import com.lucy.service.Bbsservice;
+import com.lucy.servlet.common.BaseServlet;
 import com.lucy.service.Commentservice;
 import com.lucy.until.ResponseUtil;
 import com.lucy.until.StringUtil;
@@ -12,6 +14,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @描述
@@ -21,6 +24,7 @@ import java.util.ArrayList;
  */
 @WebServlet(name="commentServlet", urlPatterns={"/admin/comment"},loadOnStartup=1)
 public class CommentServlet extends BaseServlet {
+    Commentservice commentservice= (Commentservice) BeanFactory.getBean("Commentservice");
 
     public String save(HttpServletRequest req, HttpServletResponse resp){
         String  pathInfo = req.getPathInfo();
@@ -44,9 +48,9 @@ public class CommentServlet extends BaseServlet {
         JSONObject result=new JSONObject();
         if(StringUtil.isNotEmpty(commentid)){
             comment.setCommentid(Integer.valueOf(commentid));
-            flag=new Commentservice().upComment(comment);
+            flag=commentservice.upComment(comment);
         }else{
-            flag=new Commentservice().insertComment(comment);
+            flag=commentservice.insertComment(comment);
         }
         if(flag==true){
             result.put("status", "1");
@@ -67,7 +71,7 @@ public class CommentServlet extends BaseServlet {
 
     public String del(HttpServletRequest req, HttpServletResponse resp) {
         String delIds=req.getParameter("delIds");
-        boolean flag=new com.lucy.service.Commentservice().delCommentbyid(delIds);
+        boolean flag=commentservice.delCommentbyid(delIds);
         JSONObject result=new JSONObject();
         if(flag==true){
             result.put("status", "1");
@@ -84,11 +88,10 @@ public class CommentServlet extends BaseServlet {
     }
 
     public String list(HttpServletRequest req, HttpServletResponse resp) {
-        Commentservice ct=new Commentservice();
-        ArrayList<Comment> commentlist=ct.getcomment();
+        List<Comment> commentlist=commentservice.getcomment();
         JSONObject result=new JSONObject();
         JSONArray jsonArray=JSONArray.fromObject(commentlist);
-        int count=ct.getCommentCount();
+        int count=commentservice.getCommentCount();
         try{
             result.put("rows", jsonArray);
             result.put("total", count);

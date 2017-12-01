@@ -1,4 +1,4 @@
-package com.lucy.common;
+package com.lucy.servlet.common;
 
 
 import javax.servlet.ServletException;

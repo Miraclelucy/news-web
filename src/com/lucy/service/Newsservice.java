@@ -1,34 +1,34 @@
 package com.lucy.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lucy.bean.News;
+import com.lucy.common.BeanFactory;
+import com.lucy.dao.NewsDao;
 
 public class Newsservice {
-	
-	/**
-	 * ���ŵ�CRUD
-	 * @return
-	 */
-	public ArrayList<News> getnews(){
-		return  new com.lucy.dao.GetNews().getnews();
+	NewsDao newsDao=(NewsDao) BeanFactory.getBean("NewsDao");
+
+	public List<News> getnews(){
+		return  newsDao.getnews();
 	}
 	public boolean insertnew(News news){
-		return new com.lucy.dao.GetNews().insertnew(news);
+		return newsDao.insertnew(news);
 	}
 	public int countnew(){
-		return new com.lucy.dao.GetNews().countnew();
+		return newsDao.countnew();
 	}
 	public  boolean delnewsbyid(String delIds){
-		return new com.lucy.dao.GetNews().delnewsbyid(delIds);
+		return newsDao.delnewsbyid(delIds);
 	}
 	public boolean upnews(News news){
-		return new com.lucy.dao.GetNews().upnews(news);
+		return newsDao.upnews(news);
 	}
-	public ArrayList<News> getnews(int newsid) {
-		return new com.lucy.dao.GetNews().getnews(newsid);
+	public List<News> getnews(int newsid) {
+		return newsDao.getnews(newsid);
 	}
-	public ArrayList<News> chuaxun(String str) {
-		return new com.lucy.dao.GetNews().chuaxun(str);
+	public List<News> chuaxun(String str) {
+		return newsDao.chuaxun(str);
 	}
 }

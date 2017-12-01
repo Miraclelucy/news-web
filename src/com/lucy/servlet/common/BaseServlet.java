@@ -1,4 +1,4 @@
-package com.lucy.common;
+package com.lucy.servlet.common;
 
 import com.lucy.until.StringUtil;
 

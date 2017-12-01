@@ -1,6 +1,6 @@
 package com.lucy.filter;
 
-import com.lucy.dao.GetAdmin;
+import com.lucy.dao.AdminDao;
 import com.lucy.until.CookieUtils;
 
 import java.io.IOException;
@@ -8,7 +8,6 @@ import javax.servlet.*;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  * @描述
@@ -44,7 +43,7 @@ public class AutoLoginServlet implements Filter {
                         String[] str=c.getValue().split("-");
                         String name=str[0];
                         String pwd=str[1];
-                        GetAdmin admin=new GetAdmin();
+                        AdminDao admin=new AdminDao();
                         boolean flag=admin.checkAdmin(name,pwd);
                         if(flag){
                             request.getSession().setAttribute("adminName",name);

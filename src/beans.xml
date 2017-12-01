@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+	<bean id="Adminservice" class="com.lucy.service.Adminservice"></bean>
+	<bean id="Bbsservice"  class="com.lucy.service.Bbsservice"></bean>
+	<bean id="Commentservice"     class="com.lucy.service.Commentservice"></bean>
+    <bean id="Newsservice"    class="com.lucy.service.Newsservice"></bean>
+    <bean id="Typeservice"    class="com.lucy.service.Typeservice"></bean>
+    <bean id="Userservice"    class="com.lucy.service.Userservice"></bean>
+
+    <bean id="AdminDao"    class="com.lucy.dao.AdminDao"/>
+    <bean id="BBSDao"      class="com.lucy.dao.BBSDao"/>
+    <bean id="CommentDao"  class="com.lucy.dao.CommentDao"/>
+    <bean id="NewsDao"     class="com.lucy.dao.NewsDao"/>
+    <bean id="TypeDao"     class="com.lucy.dao.TypeDao"/>
+    <bean id="UserDao"     class="com.lucy.dao.UserDao"/>
+</beans>

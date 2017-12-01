@@ -10,7 +10,7 @@ import javax.sql.DataSource;
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
 /**
- * @描述
+ * @描述 升级版本--使用ing
  * @创建人 lushiqin
  * @创建时间 2017-11-12
  * @修改人和其它信息
